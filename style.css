@@ -1,211 +1,65 @@
-:root {
-    --primary-color: #ff4d6d;
-    --secondary-color: #ff8fa3;
-    --accent-color: #c9184a;
-    --bg-gradient: linear-gradient(135deg, #fff0f3 0%, #ffccd5 100%);
-    --white: #ffffff;
-    --font-heading: 'Great Vibes', cursive;
-    --font-body: 'Poppins', sans-serif;
-}
+<!DOCTYPE html>
+<html lang="en">
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahveen will U Be My Valentine?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
 
-/* ----------------- ADDED BACKGROUND ----------------- */
-/* Default game background */
-/* Default game background */
-body {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    font-family: var(--font-body);
-    background: var(--bg-gradient); /* default gradient during game */
-    transition: background 0.5s ease; /* smooth transition when changing bg */
-    user-select: none; /* Prevent selection during game */
-}
+<body>
+    <!-- Background Music (Optional, user initiates) -->
+    <audio id="love-song" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
 
 
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
 
-/* Game container & canvas remain same */
-#game-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
+        <!-- UI Overlay -->
+        <div id="ui-layer">
+            <div id="score-board">
+                <span>❤️ Love Meter: </span>
+                <div class="progress-bar">
+                    <div id="love-fill"></div>
+                </div>
+            </div>
+        </div>
 
-canvas {
-    display: block;
-    width: 100%;
-    height: 100%;
-}
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen active">
+            <h1>Mahveen</h1>
+            <p>Tumhare naam se Mohabbat ki hai, Tum mere pass nahi phir bhi Tumhari yaad se Mohabbat ki hai</p>
+                <p>Kabhi Tum ne bhi mujhe yaad kiya hoga, Maine un lamhat se mohabbat ki hai</p> 
+            <button id="start-btn" class="btn">Click Somethng for U</button>
+        </div>
 
-/* UI Layer */
-#ui-layer {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 10;
-    pointer-events: none;
-}
+        <!-- Proposal Modal (Hidden initially) -->
+        <div id="proposal-screen" class="screen hidden">
+            <div class="proposal-content">
+                <h1>Will You Be My Valentine?</h1>
+                <p class="sub-text">You caught my heart! Now I have to ask...</p>
+                <div class="buttons">
+                    <button id="yes-btn" class="btn yes-btn">YES!</button>
+                    <button id="no-btn" class="btn no-btn">No</button>
+                </div>
+            </div>
+        </div>
 
-#score-board {
-    background: rgba(255, 255, 255, 0.8);
-    padding: 10px 20px;
-    border-radius: 30px;
-    box-shadow: 0 4px 15px rgba(255, 77, 109, 0.2);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 600;
-    color: var(--accent-color);
-}
+        <!-- Celebration Overlay -->
+        <div id="celebration-screen" class="screen hidden">
+            <h1>Happy Propose Day! 💍</h1>
+            <p>I love you Mahveen</p>
+        </div>
+    </div>
 
-.progress-bar {
-    width: 150px;
-    height: 15px;
-    background: #ffe5ec;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid var(--secondary-color);
-}
+    <script src="script.js"></script>
+</body>
 
-#love-fill {
-    width: 0%;
-    height: 100%;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-    transition: width 0.3s ease-out;
-}
-
-/* Screens */
-.screen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: rgba(255, 240, 243, 0.7); /* slightly transparent to show photo behind */
-    z-index: 20;
-    transition: opacity 0.5s ease;
-}
-
-.screen.hidden {
-    opacity: 0;
-    pointer-events: none;
-    display: none; /* simple hide for logic */
-}
-
-.screen.active {
-    opacity: 1;
-    pointer-events: auto;
-    display: flex;
-}
-
-/* ----------------- CELEBRATION SCREEN BACKGROUND ----------------- */
-#celebration-screen {
-    background: url('crush.jpg') center center / cover no-repeat;
-}
-
-/* Optional: if you have a loading screen */
-#loading-screen {
-    background: url('crush.jpg') center center / cover no-repeat;
-}
-
-h1 {
-    font-family: var(--font-heading);
-    font-size: 5rem;
-    color: var(--accent-color);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    text-align: center;
-    line-height: 1.2;
-}
-
-p {
-    font-size: 1.2rem;
-    color: #590d22;
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.btn {
-    padding: 15px 40px;
-    font-size: 1.2rem;
-    font-family: var(--font-body);
-    font-weight: 600;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 5px 15px rgba(201, 24, 74, 0.3);
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(201, 24, 74, 0.4);
-}
-
-.btn:active {
-    transform: translateY(1px);
-}
-
-#start-btn {
-    background: var(--primary-color);
-    color: white;
-}
-
-.buttons {
-    display: flex;
-    gap: 20px;
-}
-
-.yes-btn {
-    background: #2dc653;
-    color: white;
-    font-size: 1.5rem;
-    padding: 20px 60px;
-}
-
-.no-btn {
-    background: #ffb703;
-    color: white;
-    position: relative;
-    transition: all 0.2s;
-}
-
-/* Animations */
-@keyframes heartbeat {
-    0% { transform: scale(1); }
-    15% { transform: scale(1.1); }
-    30% { transform: scale(1); }
-    45% { transform: scale(1.1); }
-    60% { transform: scale(1); }
-}
-
-.proposal-content h1 {
-    animation: heartbeat 2s infinite;
-}
-
-/* ----------------- MOBILE RESPONSIVE FIXES ----------------- */
-@media (max-width: 480px) {
-    h1 {
-        font-size: 3rem; /* smaller headings on mobile */
-    }
-    p {
-        font-size: 1rem;
-    }
-    .btn {
-        padding: 12px 30px;
-        font-size: 1rem;
-    }
-    #score-board {
-        padding: 8px 15px;
-        font-size: 0.9rem;
-    }
-}
+</html>
