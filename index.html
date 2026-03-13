@@ -24,6 +24,8 @@ transition:1s;
 padding:10px;
 }
 
+/* BACKGROUND IMAGE AFTER CLICK */
+
 body.open-bg{
 background:url("bg.jpg") no-repeat center center;
 background-size:cover;
@@ -153,6 +155,8 @@ transition:.3s;
 transform:scale(1.1);
 }
 
+/* TRANSPARENT OVERLAY */
+
 #letter-view{
 position:fixed;
 top:0;
@@ -175,6 +179,8 @@ animation:fade .6s;
 from{opacity:0}
 to{opacity:1}
 }
+
+/* GLASS EFFECT LETTER */
 
 .love-letter{
 background:rgba(255,255,255,0.85);
@@ -205,9 +211,9 @@ margin-bottom:10px;
 overflow:hidden;
 white-space:nowrap;
 width:0;
-display:inline-block;
 animation:typing 4s steps(40,end) forwards;
 }
+
 .love-letter p:nth-of-type(1){animation-delay:1s;}
 .love-letter p:nth-of-type(2){animation-delay:4s;}
 .love-letter p:nth-of-type(3){animation-delay:7s;}
@@ -279,7 +285,9 @@ font-size:30px;
 
 .love-letter p{
 font-size:18px;
-white-space:nowrap;
+white-space:normal;
+animation:none;
+width:auto;
 }
 
 }
@@ -323,6 +331,7 @@ white-space:nowrap;
 <p>I’m really sorry I hurt you. You mean a lot to me.</p>
 <p>Your smile matters to me more than anything.</p>
 <p>I may not be perfect, but I truly care about you.</p>
+
 
 <p style="text-align:right">— Yours Forever: <span style="color:#ff4d6d;">علي</span></p>
 
